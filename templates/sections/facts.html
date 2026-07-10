@@ -1,0 +1,8 @@
+<!-- quick facts -->
+<div class="facts-bar">
+  <div class="wrap facts-inner">
+    {% for f in facts %}
+    <div class="stat"><div class="num">{{ f.num }}</div><div class="lbl">{{ f.label }}</div></div>
+    {% endfor %}
+  </div>
+</div>

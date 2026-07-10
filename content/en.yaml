@@ -1,0 +1,47 @@
+site:
+  title: "VEGEX — Premium garlic from the Kyrgyz highlands"
+  description: "VEGEX exports premium high-altitude garlic from Kyrgyzstan: two Hardneck varieties (Royal violet, Ivory white), export-grade quality and reliable logistics for EU buyers."
+  cta: "Request pricing"
+  menu_label: "Menu"
+
+nav:
+  - { label: "About", href: "#about" }
+  - { label: "Terroir", href: "#terroir" }
+  - { label: "Product", href: "#spec" }
+  - { label: "Quality", href: "#quality" }
+  - { label: "Logistics", href: "#logistics" }
+
+hero:
+  photo: "hero-nature"
+  photo_hint: "PHOTO GOES HERE (mountains, rivers, forests and fields of Kyrgyzstan — full-screen background)"
+  tagline: "Premium garlic from the Kyrgyz highlands"
+  cta_primary: "Request pricing →"
+  cta_secondary: "Specifications"
+  scroll_cue: "Scroll down"
+
+facts:
+  - { num: "1800+ m", label: "growing altitude" }
+  - { num: "70–90 mm", label: "main calibre (≈80%)" }
+  - { num: "8–10 mo", label: "shelf life in transit" }
+  - { num: "10–12", label: "cloves per bulb" }
+
+contacts:
+  phone: "+996 555 555 594"
+  phone_raw: "+996555555594"
+  email: "info@vegex.kg"
+  address:
+    - "128 Aitmatov St, Bishkek"
+    - "Kyrgyz Republic"
+
+footer:
+  about: "Export of premium garlic from the highland regions of Kyrgyzstan. Freshness, consistent quality, reliable logistics."
+  sections_title: "Sections"
+  links:
+    - { label: "About", href: "#about" }
+    - { label: "Terroir", href: "#terroir" }
+    - { label: "Product", href: "#spec" }
+    - { label: "Quality", href: "#quality" }
+    - { label: "Logistics", href: "#logistics" }
+  contacts_title: "Contacts"
+  copyright: "© 2026 VEGEX. All rights reserved."
+  made_in: "Made in Kyrgyzstan"

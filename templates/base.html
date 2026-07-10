@@ -1,0 +1,98 @@
+{% macro logo(cls='') -%}
+<div class="logo {{ cls }}"><span class="v">veg</span><span class="x">ex</span></div>
+{%- endmacro %}
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+{% if not fonts_inlined %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+{% endif %}
+<style>
+{{ fonts_css_inline }}
+{{ css_inline }}
+/* мобильное меню (бургер) */
+body.nav-open .nav ul{display:flex;position:fixed;top:70px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 0;z-index:49}
+body.nav-open .nav ul li{padding:0 28px}
+body.nav-open .nav ul a{display:block;padding:12px 0}
+[data-form-status]{font-size:12.5px;margin-top:10px;text-align:center}
+[data-form-status][data-state="ok"]{color:var(--gd)}
+[data-form-status][data-state="err"]{color:var(--orange)}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap nav">
+  {{ logo() }}
+  <ul>
+    {% for item in nav %}
+    <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="nav-r">
+    <div class="lang">
+      {% for l in langs %}
+        {% if l == lang %}<b>{{ l | upper }}</b>{% else %}<a href="../{{ l }}/">{{ l | upper }}</a>{% endif %}
+        {% if not loop.last %}<span>/</span>{% endif %}
+      {% endfor %}
+    </div>
+    <a href="#contact" class="btn btn-o">{{ site.cta }}</a>
+    <button class="burger" aria-label="{{ site.menu_label }}"><span></span><span></span><span></span></button>
+  </div>
+</div>
+</header>
+
+{% include 'sections/hero.html' ignore missing %}
+{% include 'sections/facts.html' ignore missing %}
+{% include 'sections/about.html' ignore missing %}
+{% include 'sections/terroir.html' ignore missing %}
+{% include 'sections/products.html' ignore missing %}
+{% include 'sections/specs.html' ignore missing %}
+{% include 'sections/packaging.html' ignore missing %}
+{% include 'sections/quality.html' ignore missing %}
+{% include 'sections/logistics.html' ignore missing %}
+{% include 'sections/partners.html' ignore missing %}
+{% include 'sections/advantages.html' ignore missing %}
+{% include 'sections/contact.html' ignore missing %}
+
+<footer>
+<div class="wrap">
+  <div class="ft">
+    <div>
+      {{ logo('w') }}
+      <p>{{ footer.about }}</p>
+    </div>
+    <div class="fc">
+      <h4>{{ footer.sections_title }}</h4>
+      {% for item in footer.links %}
+      <a href="{{ item.href }}">{{ item.label }}</a>
+      {% endfor %}
+    </div>
+    <div class="fc">
+      <h4>{{ footer.contacts_title }}</h4>
+      <a href="tel:{{ contacts.phone_raw }}">{{ contacts.phone }}</a>
+      <a href="mailto:{{ contacts.email }}">{{ contacts.email }}</a>
+      {% for line in contacts.address %}
+      <a>{{ line }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="fb">
+    <span>{{ footer.copyright }}</span>
+    <span>{{ footer.made_in }}</span>
+  </div>
+</div>
+<div class="stripe"><i class="g"></i><i class="o"></i></div>
+</footer>
+
+<script>
+{{ js_inline }}
+</script>
+</body>
+</html>

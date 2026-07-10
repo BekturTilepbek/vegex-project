@@ -1,0 +1,18 @@
+# сборка (самодостаточный HTML с base64 — генерируется, в git не храним)
+dist/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# ОС / редакторы
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# cloudflare / wrangler
+.wrangler/

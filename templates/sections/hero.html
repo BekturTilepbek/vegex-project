@@ -1,0 +1,25 @@
+<!-- HERO — логотип на фоне природы Кыргызстана -->
+<section class="hero-nature">
+  {% set bg = img(hero.photo) %}
+  {% if bg %}
+  <div class="ph" style="background:#0e1b12 url('{{ bg }}') center/cover"></div>
+  {% else %}
+  <div class="ph">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <div style="color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.06em;text-align:center;margin-top:8px">{{ hero.photo_hint }}</div>
+  </div>
+  {% endif %}
+  <div class="hero-nature-over"></div>
+  <div class="hero-nature-content">
+    <div class="hero-logo-big"><span class="v">veg</span><span class="x">ex</span></div>
+    <p class="hero-tagline">{{ hero.tagline }}</p>
+    <div class="hero-nature-cta">
+      <a href="#contact" class="btn btn-o">{{ hero.cta_primary }}</a>
+      <a href="#spec" class="btn" style="background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.5);backdrop-filter:blur(4px)">{{ hero.cta_secondary }}</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>{{ hero.scroll_cue }}</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>

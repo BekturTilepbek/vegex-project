@@ -1,0 +1,47 @@
+site:
+  title: "VEGEX — Премиальный чеснок из высокогорий Кыргызстана"
+  description: "VEGEX — экспорт премиального высокогорного чеснока из Кыргызстана: два сорта Hardneck (Royal фиолетовый, Ivory белый), экспортное качество, надёжная логистика для покупателей ЕС."
+  cta: "Запросить прайс"
+  menu_label: "Меню"
+
+nav:
+  - { label: "О нас", href: "#about" }
+  - { label: "Терруар", href: "#terroir" }
+  - { label: "Продукт", href: "#spec" }
+  - { label: "Качество", href: "#quality" }
+  - { label: "Логистика", href: "#logistics" }
+
+hero:
+  photo: "hero-nature"
+  photo_hint: "ЗДЕСЬ БУДЕТ ФОТО (горы, реки, леса, поля Кыргызстана — полноэкранный фон)"
+  tagline: "Премиальный чеснок из высокогорий Кыргызстана"
+  cta_primary: "Запросить прайс →"
+  cta_secondary: "Характеристики"
+  scroll_cue: "Листайте вниз"
+
+facts:
+  - { num: "1800+ м", label: "высота выращивания" }
+  - { num: "70–90 мм", label: "основной калибр (≈80%)" }
+  - { num: "8–10 мес", label: "лёжкость при транспортировке" }
+  - { num: "10–12", label: "зубчиков в головке" }
+
+contacts:
+  phone: "+996 555 555 594"
+  phone_raw: "+996555555594"
+  email: "info@vegex.kg"
+  address:
+    - "г. Бишкек, ул. Айтматова 128"
+    - "Кыргызская Республика"
+
+footer:
+  about: "Экспорт премиального чеснока из высокогорных районов Кыргызстана. Свежесть, стабильное качество, надёжная логистика."
+  sections_title: "Разделы"
+  links:
+    - { label: "О нас", href: "#about" }
+    - { label: "Терруар", href: "#terroir" }
+    - { label: "Продукт", href: "#spec" }
+    - { label: "Качество", href: "#quality" }
+    - { label: "Логистика", href: "#logistics" }
+  contacts_title: "Контакты"
+  copyright: "© 2026 VEGEX. Все права защищены."
+  made_in: "Made in Kyrgyzstan"
