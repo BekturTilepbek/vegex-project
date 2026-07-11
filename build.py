@@ -10,12 +10,14 @@ VEGEX — сборка статического лендинга.
 """
 
 import base64
+import io
 import mimetypes
 import re
 import shutil
 from pathlib import Path
 
 import yaml
+from PIL import Image
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 ROOT = Path(__file__).parent
@@ -59,6 +61,34 @@ def data_uri(path: Path) -> str:
     return f"data:{mime};base64,{b64}"
 
 
+# Фото с профессиональной фотосессии приходят в исходном размере (часто
+# 8-20 МБ на кадр). В git храним оригиналы как есть (static/images/), но перед
+# base64-встраиванием в самодостаточный HTML пережимаем: ресайз по длинной
+# стороне + JPEG качество ниже. Иначе итоговый dist/*.html раздувается до
+# сотен МБ на одну страницу.
+IMG_MAX_DIMENSION = 1800  # px по длинной стороне
+IMG_JPEG_QUALITY = 78
+
+
+def compressed_data_uri(path: Path) -> str:
+    """Фото -> сжатый JPEG -> data: URI. Для не-растровых файлов — как есть."""
+    if path.suffix.lower() not in (".jpg", ".jpeg", ".png", ".webp"):
+        return data_uri(path)
+
+    with Image.open(path) as im:
+        im = im.convert("RGB")
+        w, h = im.size
+        longest = max(w, h)
+        if longest > IMG_MAX_DIMENSION:
+            scale = IMG_MAX_DIMENSION / longest
+            im = im.resize((round(w * scale), round(h * scale)), Image.LANCZOS)
+
+        buf = io.BytesIO()
+        im.save(buf, format="JPEG", quality=IMG_JPEG_QUALITY, optimize=True)
+        b64 = base64.b64encode(buf.getvalue()).decode("ascii")
+        return f"data:image/jpeg;base64,{b64}"
+
+
 def build_image_index() -> dict:
     """
     Индекс фото: транслитерированное имя (без расширения) -> data URI.
@@ -72,7 +102,7 @@ def build_image_index() -> dict:
         if not f.is_file() or f.name.startswith("."):
             continue
         key = translit(f.stem)
-        index[key] = data_uri(f)
+        index[key] = compressed_data_uri(f)
     return index
 
 
