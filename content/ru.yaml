@@ -12,7 +12,7 @@ nav:
   - { label: "Логистика", href: "#logistics" }
 
 hero:
-  photo: "chesnok0241-redakt."
+  photo: "hero-nature."
   photo_hint: "ЗДЕСЬ БУДЕТ ФОТО (горы, реки, леса, поля Кыргызстана — полноэкранный фон)"
   tagline: "Премиальный чеснок из высокогорий Кыргызстана"
   cta_primary: "Запросить прайс →"
@@ -145,7 +145,7 @@ quality:
         - { caption: "Фото процесса упаковки", photo: "chesnok0345-redakt." }
     single:
       caption: "Фото загруженного контейнера (с логотипом VEGEX на коробах)"
-      photo: "q-konteyner"
+      photo: "packaging-trucks2"
       hint: "ЗДЕСЬ ФОТО — VEGEX на упаковке/транспорте (съёмка ожидается)"
 
 logistics:
