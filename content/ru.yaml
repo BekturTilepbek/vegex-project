@@ -145,7 +145,7 @@ quality:
         - { caption: "Фото процесса упаковки", photo: "chesnok0345-redakt." }
     single:
       caption: "Фото загруженного контейнера (с логотипом VEGEX на коробах)"
-      photo: "packaging-trucks2"
+      photo: "packaging-branded"
       hint: "ЗДЕСЬ ФОТО — VEGEX на упаковке/транспорте (съёмка ожидается)"
 
 logistics:
