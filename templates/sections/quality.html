@@ -1,0 +1,66 @@
+<!-- QUALITY -->
+{% macro pgal_item(cap, photo, hint) %}
+<div class="pgal-item">
+  {% set src = img(photo) %}
+  {% if src %}
+  <div class="ph" style="position:absolute;inset:0;border:none;border-radius:0;background:#0e1b12 url('{{ src }}') center/cover"></div>
+  {% else %}
+  <div class="ph" style="position:absolute;inset:0;border:none;border-radius:0"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="margin-top:6px">{{ hint | default('ЗДЕСЬ ФОТО') }}</span></div>
+  {% endif %}
+  <div class="photo-pill">{{ cap }}</div>
+</div>
+{% endmacro %}
+<section id="quality">
+<div class="wrap">
+  <div class="sec-head rv">
+    <span class="eyebrow">{{ quality.eyebrow }}</span>
+    <h2>{{ quality.title }}</h2>
+    <div class="grad-line"></div>
+    <p>{{ quality.intro }}</p>
+  </div>
+  <div class="split rv">
+    <div class="qbox">
+      <div class="sub">{{ quality.docs.sub }}</div>
+      <ul class="qlist">
+        {% for i in quality.docs['items'] %}<li>{{ i }}</li>{% endfor %}
+      </ul>
+      <p style="margin-top:20px;font-size:13.5px;color:#4a5a50">{{ quality.docs.note }}</p>
+      <div class="chips">
+        {% for c in quality.docs.chips %}<span class="chip{% if c.hl %} hl{% endif %}">{{ c.label }}</span>{% endfor %}
+      </div>
+    </div>
+    <div class="qbox">
+      <div class="sub">{{ quality.lab.sub }}</div>
+      <ul class="qlist">
+        {% for i in quality.lab['items'] %}<li>{{ i }}</li>{% endfor %}
+      </ul>
+      <p style="margin-top:20px;font-size:13.5px;color:#4a5a50">{{ quality.lab.note }}</p>
+      <div class="chips">
+        {% for c in quality.lab.chips %}<span class="chip{% if c.hl %} hl{% endif %}">{{ c.label }}</span>{% endfor %}
+      </div>
+      <p style="margin-top:16px;font-size:12.5px;color:var(--stone)">{{ quality.lab.note2 }}</p>
+    </div>
+  </div>
+
+  <!-- ФОТО ПРОДУКЦИИ — split-галерея в стиле КП -->
+  <div style="margin-top:44px" class="rv">
+    <span class="eyebrow" style="margin-bottom:18px;display:flex">{{ quality.gallery.eyebrow }}</span>
+  </div>
+  {% for pair in quality.gallery.pairs %}
+  <div class="pgal-row rv" style="margin-top:{% if loop.first %}16px{% else %}2px{% endif %}">
+    {% for it in pair %}{{ pgal_item(it.caption, it.photo, it.hint) }}{% endfor %}
+  </div>
+  {% endfor %}
+  <div class="pgal-row single rv" style="margin-top:2px">
+    <div class="pgal-item" style="aspect-ratio:32/10">
+      {% set src = img(quality.gallery.single.photo) %}
+      {% if src %}
+      <div class="ph" style="position:absolute;inset:0;border:none;border-radius:0;background:#0e1b12 url('{{ src }}') center/cover"></div>
+      {% else %}
+      <div class="ph" style="position:absolute;inset:0;border:none;border-radius:0"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="margin-top:6px">{{ quality.gallery.single.hint }}</span></div>
+      {% endif %}
+      <div class="photo-pill">{{ quality.gallery.single.caption }}</div>
+    </div>
+  </div>
+</div>
+</section>

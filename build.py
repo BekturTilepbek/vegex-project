@@ -24,7 +24,10 @@ TEMPLATES = ROOT / "templates"
 STATIC = ROOT / "static"
 DIST = ROOT / "dist"
 
-LANGS = ["ru", "en"]
+# Активные языки сборки. Приоритет — русский launch; английский включается
+# добавлением "en" (контент в content/en.yaml). Переключатель RU/EN в шапке
+# показывается автоматически, когда языков больше одного.
+LANGS = ["ru"]
 
 # Кириллица известная точка отказа при встраивании фото: имена файлов на
 # кириллице ломают загрузку. Поэтому на этапе сборки транслитерируем в латиницу
@@ -73,24 +76,40 @@ def build_image_index() -> dict:
     return index
 
 
+# unicode-диапазоны сабсетов (как у Google Fonts / fontsource) — чтобы браузер
+# грузил кириллический файл только для кириллицы, латинский — для латиницы.
+UNICODE_RANGE = {
+    "cyrillic": "U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116",
+    "latin": (
+        "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,"
+        "U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,"
+        "U+2212,U+2215,U+FEFF,U+FFFD"
+    ),
+}
+
+
 def build_fonts_css() -> str:
     """
-    Самодостаточные шрифты: если в static/fonts/ лежат .woff2 Montserrat,
-    инлайним их через @font-face (base64). Имя файла вида
-    'Montserrat-700.woff2' -> weight 700. Если шрифтов нет — вернём пусто,
-    и base.html подхватит запасной <link> на Google Fonts.
+    Самодостаточные шрифты: инлайним Montserrat из static/fonts/ через @font-face
+    (base64). Имя файла вида 'montserrat-<subset>-<weight>-normal.woff2', напр.
+    'montserrat-cyrillic-700-normal.woff2' -> subset=cyrillic, weight=700.
+    Если шрифтов нет — вернём пусто, и base.html подхватит <link> на Google Fonts.
     """
     fonts_dir = STATIC / "fonts"
     if not fonts_dir.exists():
         return ""
     blocks = []
     for f in sorted(fonts_dir.glob("*.woff2")):
-        m = re.search(r"(\d{3})", f.stem)
-        weight = m.group(1) if m else "400"
+        m = re.search(r"(cyrillic|latin)-(\d{3})", f.stem)
+        if not m:
+            continue
+        subset, weight = m.group(1), m.group(2)
+        urange = UNICODE_RANGE.get(subset)
+        rng = f"unicode-range:{urange};" if urange else ""
         blocks.append(
             "@font-face{font-family:'Montserrat';font-style:normal;"
             f"font-weight:{weight};font-display:swap;"
-            f"src:url({data_uri(f)}) format('woff2');}}"
+            f"src:url({data_uri(f)}) format('woff2');{rng}}}"
         )
     return "\n".join(blocks)
 
@@ -157,6 +176,18 @@ def main():
     for lang in LANGS:
         size = render_lang(env, lang, css, js, fonts_css, fonts_present)
         print(f"  dist/{lang}/index.html — {size // 1024} КБ")
+
+    # Корень -> основной язык (первый в списке). Нужен для Cloudflare Pages,
+    # чтобы vegex.kg открывал язык по умолчанию.
+    primary = LANGS[0]
+    (DIST / "index.html").write_text(
+        "<!DOCTYPE html><html lang=\"" + primary + "\"><head><meta charset=\"UTF-8\">"
+        f"<meta http-equiv=\"refresh\" content=\"0; url=/{primary}/\">"
+        f"<link rel=\"canonical\" href=\"/{primary}/\">"
+        f"<title>VEGEX</title></head><body><a href=\"/{primary}/\">VEGEX</a></body></html>",
+        encoding="utf-8",
+    )
+    print(f"  dist/index.html — редирект на /{primary}/")
 
     print("Готово.")
 

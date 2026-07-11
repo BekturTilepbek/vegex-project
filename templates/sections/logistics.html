@@ -1,0 +1,27 @@
+<!-- LOGISTICS -->
+<div class="markets" id="logistics">
+<div class="wrap">
+  <span class="eyebrow">{{ logistics.eyebrow }}</span>
+  <div class="mk-g">
+    <div class="rv">
+      <h2 style="color:#fff;font-size:clamp(26px,3.2vw,40px);margin:14px 0 8px">{{ logistics.title }}</h2>
+      <div class="grad-line"></div>
+      <p style="color:#c9d6c9;margin:14px 0 28px">{{ logistics.intro }}</p>
+      <div class="inco">
+        {% for i in logistics.incoterms %}<b{% if i.soft %} class="s"{% endif %}>{{ i.label }}</b>{% endfor %}
+      </div>
+      <p class="mk-note">{{ logistics.incoterms_note }}</p>
+      <p style="color:#9fb3a3;font-size:12.5px;margin-top:18px;font-weight:600">{{ logistics.customs_title }}</p>
+      <div class="inco" style="margin-top:10px">
+        {% for c in logistics.customs %}<b style="font-size:12px;padding:8px 12px">{{ c }}</b>{% endfor %}
+      </div>
+      <p class="mk-note">{{ logistics.customs_note }}</p>
+    </div>
+    <div class="mk-list rv">
+      {% for m in logistics.markets %}
+      <div class="m"><h3>{{ m.name }}</h3><span>{{ m.tag }}</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>

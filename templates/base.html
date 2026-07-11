@@ -20,6 +20,8 @@
 body.nav-open .nav ul{display:flex;position:fixed;top:70px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 0;z-index:49}
 body.nav-open .nav ul li{padding:0 28px}
 body.nav-open .nav ul a{display:block;padding:12px 0}
+/* аккуратные тёмные плейсхолдеры фото (аддитивно, main.css не трогаем) */
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:rgba(255,255,255,.55)}
 [data-form-status]{font-size:12.5px;margin-top:10px;text-align:center}
 [data-form-status][data-state="ok"]{color:var(--gd)}
 [data-form-status][data-state="err"]{color:var(--orange)}
@@ -36,12 +38,14 @@ body.nav-open .nav ul a{display:block;padding:12px 0}
     {% endfor %}
   </ul>
   <div class="nav-r">
+    {% if langs | length > 1 %}
     <div class="lang">
       {% for l in langs %}
         {% if l == lang %}<b>{{ l | upper }}</b>{% else %}<a href="../{{ l }}/">{{ l | upper }}</a>{% endif %}
         {% if not loop.last %}<span>/</span>{% endif %}
       {% endfor %}
     </div>
+    {% endif %}
     <a href="#contact" class="btn btn-o">{{ site.cta }}</a>
     <button class="burger" aria-label="{{ site.menu_label }}"><span></span><span></span><span></span></button>
   </div>
@@ -54,7 +58,6 @@ body.nav-open .nav ul a{display:block;padding:12px 0}
 {% include 'sections/terroir.html' ignore missing %}
 {% include 'sections/products.html' ignore missing %}
 {% include 'sections/specs.html' ignore missing %}
-{% include 'sections/packaging.html' ignore missing %}
 {% include 'sections/quality.html' ignore missing %}
 {% include 'sections/logistics.html' ignore missing %}
 {% include 'sections/partners.html' ignore missing %}

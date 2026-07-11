@@ -1,0 +1,31 @@
+<!-- CTA -->
+<div class="cta" id="contact">
+<div class="wrap cta-g">
+  <div class="rv">
+    <span class="eyebrow" style="color:rgba(255,255,255,.7)">{{ contact.eyebrow }}</span>
+    <h2 style="margin-top:14px">{{ contact.title }}</h2>
+    <p class="lead">{{ contact.lead }}</p>
+    <div class="cline">
+      <div>👤 <div>{{ contacts.ceo }}<div class="role">{{ contacts.ceo_role }}</div></div></div>
+      <a href="tel:{{ contacts.phone_raw }}">📞 {{ contacts.phone }}</a>
+      <a href="mailto:{{ contacts.email }}">✉️ {{ contacts.email }}</a>
+    </div>
+  </div>
+  <form class="form rv" data-contact-form action="/contact" method="post"
+        data-msg-ok="{{ contact.form.msg_ok }}" data-msg-err="{{ contact.form.msg_err }}">
+    <h3>{{ contact.form.title }}</h3>
+    <p class="fs">{{ contact.form.subtitle }}</p>
+    <div class="field"><label>{{ contact.form.company_label }}</label><input type="text" name="company" placeholder="{{ contact.form.company_ph }}"></div>
+    <div class="field"><label>{{ contact.form.contact_label }}</label><input type="text" name="contact" placeholder="{{ contact.form.contact_ph }}"></div>
+    <div class="field"><label>{{ contact.form.market_label }}</label>
+      <select name="market">
+        {% for o in contact.form.market_options %}<option>{{ o }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="field"><label>{{ contact.form.volume_label }}</label><textarea name="volume" rows="2" placeholder="{{ contact.form.volume_ph }}"></textarea></div>
+    <button type="submit" class="btn btn-o" data-sending="{{ contact.form.sending }}">{{ contact.form.button }}</button>
+    <div data-form-status></div>
+    <small>{{ contact.form.note }}</small>
+  </form>
+</div>
+</div>
