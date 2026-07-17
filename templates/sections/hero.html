@@ -1,13 +1,19 @@
 <!-- HERO — логотип на фоне природы Кыргызстана -->
 <section class="hero-nature">
-  {% set bg = img(hero.photo) %}
-  {% if bg %}
-  <div class="ph" style="background:#0e1b12 url('{{ bg }}') center/cover"></div>
+  {% if hero_video %}
+  <video class="ph" autoplay muted loop playsinline style="object-fit:cover;width:100%;height:100%">
+    <source src="{{ hero_video }}">
+  </video>
   {% else %}
-  <div class="ph">
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-    <div style="color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.06em;text-align:center;margin-top:8px">{{ hero.photo_hint }}</div>
-  </div>
+    {% set bg = img(hero.photo) %}
+    {% if bg %}
+    <div class="ph" style="background:#0e1b12 url('{{ bg }}') center/cover"></div>
+    {% else %}
+    <div class="ph">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <div style="color:rgba(255,255,255,.55);font-size:12px;letter-spacing:.06em;text-align:center;margin-top:8px">{{ hero.photo_hint }}</div>
+    </div>
+    {% endif %}
   {% endif %}
   <div class="hero-nature-over"></div>
   <div class="hero-nature-content">

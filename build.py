@@ -68,6 +68,26 @@ def compressed_data_uri(path: Path) -> str:
         return f"data:image/jpeg;base64,{b64}"
 
 
+def find_hero_video() -> str | None:
+    """
+    Если в static/video/ есть hero.mp4 (или .webm) — встраиваем как base64
+    <video>, тем же принципом, что и фото (без внешних хостингов вроде
+    YouTube — ради самодостаточности и GDPR). Пока файла нет — используется
+    статичное фото.
+    """
+    video_dir = STATIC / "video"
+    if not video_dir.exists():
+        return None
+    for ext in ("mp4", "webm"):
+        candidates = sorted(video_dir.glob(f"hero.{ext}"))
+        if candidates:
+            path = candidates[0]
+            mime = "video/mp4" if ext == "mp4" else "video/webm"
+            b64 = base64.b64encode(path.read_bytes()).decode("ascii")
+            return f"data:{mime};base64,{b64}"
+    return None
+
+
 def build_image_index() -> dict:
     index = {}
     img_dir = STATIC / "images"
@@ -137,7 +157,7 @@ def make_env(images: dict) -> Environment:
     return env
 
 
-def render_lang(env, lang, css, js, fonts_css, fonts_present):
+def render_lang(env, lang, css, js, fonts_css, fonts_present, hero_video):
     ctx = load_content(lang)
     ctx.update({
         "lang": lang,
@@ -146,6 +166,7 @@ def render_lang(env, lang, css, js, fonts_css, fonts_present):
         "js_inline": js,
         "fonts_css_inline": fonts_css,
         "fonts_inlined": fonts_present,
+        "hero_video": hero_video,
     })
     html = env.get_template("base.html").render(**ctx)
     out_dir = DIST / lang
@@ -163,12 +184,15 @@ def main():
     fonts_css = build_fonts_css()
     fonts_present = bool(fonts_css)
     images = build_image_index()
+    hero_video = find_hero_video()
 
     env = make_env(images)
 
     print(f"Фото в индексе: {len(images)} | шрифты инлайн: {'да' if fonts_present else 'нет (Google Fonts fallback)'}")
+    if hero_video:
+        print("Видео на фоне hero: найдено, встраиваю")
     for lang in LANGS:
-        size = render_lang(env, lang, css, js, fonts_css, fonts_present)
+        size = render_lang(env, lang, css, js, fonts_css, fonts_present, hero_video)
         print(f"  dist/{lang}/index.html — {size // 1024} КБ")
 
     primary = LANGS[0]

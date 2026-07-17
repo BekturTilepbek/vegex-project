@@ -1,0 +1,25 @@
+<!-- CATEGORIES — направления, которые появятся позже -->
+<section style="background:var(--paper2)">
+<div class="wrap">
+  <div class="sec-head rv">
+    <span class="eyebrow">{{ categories.eyebrow }}</span>
+    <h2>{{ categories.title }}</h2>
+    <div class="grad-line"></div>
+    <p>{{ categories.intro }}</p>
+  </div>
+  <div class="prod-grid rv">
+    {% for c in categories.cards %}
+    <div class="prod-card">
+      {% set src = img(c.photo) %}
+      {% if src %}
+      <div class="ph" style="background:#0e1b12 url('{{ src }}') center/cover"></div>
+      {% else %}
+      <div class="ph"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span style="margin-top:8px">{{ c.hint }}</span></div>
+      {% endif %}
+      <div class="prod-over"></div>
+      <div class="prod-content"><h3>{{ c.title }}</h3><button class="prod-btn">{{ categories.card_cta }}</button></div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</section>

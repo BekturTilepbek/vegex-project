@@ -22,6 +22,10 @@ body.nav-open .nav ul li{padding:0 28px}
 body.nav-open .nav ul a{display:block;padding:12px 0}
 /* аккуратные тёмные плейсхолдеры фото (аддитивно, main.css не трогаем) */
 .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:rgba(255,255,255,.55)}
+/* лёгкий "живой" эффект на hero, пока нет настоящего видео */
+@keyframes heroKenBurns{0%{transform:scale(1.02) translate(0,0)}50%{transform:scale(1.12) translate(-1.5%,-1%)}100%{transform:scale(1.02) translate(0,0)}}
+.hero-nature .ph:not(video){animation:heroKenBurns 26s ease-in-out infinite}
+@media (prefers-reduced-motion: reduce){.hero-nature .ph{animation:none}}
 [data-form-status]{font-size:12.5px;margin-top:10px;text-align:center}
 [data-form-status][data-state="ok"]{color:var(--gd)}
 [data-form-status][data-state="err"]{color:var(--orange)}
@@ -57,6 +61,7 @@ body.nav-open .nav ul a{display:block;padding:12px 0}
 {% include 'sections/about.html' ignore missing %}
 {% include 'sections/terroir.html' ignore missing %}
 {% include 'sections/products.html' ignore missing %}
+{% include 'sections/categories.html' ignore missing %}
 {% include 'sections/specs.html' ignore missing %}
 {% include 'sections/quality.html' ignore missing %}
 {% include 'sections/logistics.html' ignore missing %}
