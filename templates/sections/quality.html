@@ -1,4 +1,8 @@
 <!-- QUALITY -->
+{% set qflag_svgs = {
+  'de': '<svg class="flag-ico" width="20" height="14" viewBox="0 0 30 20"><rect width="30" height="6.67" y="0" fill="#000"/><rect width="30" height="6.67" y="6.67" fill="#DD0000"/><rect width="30" height="6.67" y="13.33" fill="#FFCE00"/></svg>',
+  'ae': '<svg class="flag-ico" width="20" height="14" viewBox="0 0 30 20"><rect width="30" height="20" fill="#00732F"/><rect width="30" height="6.67" y="6.67" fill="#fff"/><rect width="30" height="6.67" y="13.33" fill="#000"/><rect width="8" height="20" fill="#FF0000"/></svg>'
+} %}
 {% macro pgal_item(cap, photo, hint) %}
 <div class="pgal-item">
   {% set src = img(photo) %}
@@ -36,7 +40,7 @@
       </ul>
       <p style="margin-top:20px;font-size:13.5px;color:#4a5a50">{{ quality.lab.note }}</p>
       <div class="chips">
-        {% for c in quality.lab.chips %}<span class="chip{% if c.hl %} hl{% endif %}">{{ c.label }}</span>{% endfor %}
+        {% for c in quality.lab.chips %}<span class="chip{% if c.hl %} hl{% endif %}">{% if c.code %}{{ qflag_svgs[c.code] | safe }}{% endif %}{{ c.label }}</span>{% endfor %}
       </div>
       <p style="margin-top:16px;font-size:12.5px;color:var(--stone)">{{ quality.lab.note2 }}</p>
     </div>
